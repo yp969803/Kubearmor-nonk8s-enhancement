@@ -1,0 +1,23 @@
+apiVersion: security.kubearmor.com/v1
+kind: KubeArmorPolicy
+metadata:
+  creationTimestamp: null
+  name: process-block
+spec:
+  action: Block
+  capabilities: {}
+  file: {}
+  message: a critical file was accessed
+  network: {}
+  process:
+    matchPaths:
+    - path: /usr/bin/ls
+    - path: /usr/bin/sleep
+  selector:
+    matchLabels:
+      kubearmor.io/container.name: nginx_container1
+  severity: 5
+  syscalls: {}
+  tags:
+  - WARNING
+status: {}
