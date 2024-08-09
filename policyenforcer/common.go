@@ -29,6 +29,7 @@ func ListDockerContainers(ctx context.Context) ([]types.Container, error) {
 	return containers, nil
 }
 
+// Function to get the root path of the go module
 func FindGoModRoot(startDir string) (string, error) {
 	currentDir := startDir
 	for {

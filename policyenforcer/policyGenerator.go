@@ -14,6 +14,8 @@ import (
 	"sigs.k8s.io/yaml"
 )
 
+
+//  Generate policy in outpolicy folder
 func PolicyGenerator() error {
 
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)

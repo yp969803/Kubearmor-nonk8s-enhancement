@@ -54,6 +54,7 @@ func sendPolicyOverGRPC(o PolicyOptions, policyEventData []byte) error {
 
 }
 
+// Enforce policy on the containers using grpc service
 func PolicyEnforcer() error {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
