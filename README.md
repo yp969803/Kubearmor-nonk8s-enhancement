@@ -53,3 +53,6 @@ karmor vm policy add nginx-container1-policy.yaml
 make enforcePolicy
 ```
 - This will enforce policy on the containers without using karmor CLI
+
+![Alt text](assets/enforce_policy.png)
+![Alt text](assets/enforce_policy_voilation.png)
