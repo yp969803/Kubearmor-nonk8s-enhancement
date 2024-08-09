@@ -14,11 +14,10 @@ import (
 	"github.com/docker/docker/client"
 )
 
-
 // Funtion to list docker containers
-func ListDockerContainers(ctx context.Context) ([]types.Container, error){
-     client, err := client.NewClientWithOpts(client.WithAPIVersionNegotiation())
-	 if err != nil {
+func ListDockerContainers(ctx context.Context) ([]types.Container, error) {
+	client, err := client.NewClientWithOpts(client.WithAPIVersionNegotiation())
+	if err != nil {
 		client.Close()
 		log.Println("Error while initializing DockerClient: %w", err)
 		panic(err)
@@ -29,7 +28,6 @@ func ListDockerContainers(ctx context.Context) ([]types.Container, error){
 	}
 	return containers, nil
 }
-
 
 func FindGoModRoot(startDir string) (string, error) {
 	currentDir := startDir

@@ -1,16 +1,32 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 
 	"github.com/kubearmor_assigment/policyenforcer"
 )
 
+var (
+	mode = flag.String("mode", "generate", "Mode of the policy enforcer")
+)
+
 func main() {
-	// err := policyenforcer.PolicyGenerator()
-	err := policyenforcer.PolicyEnforcer()
-	if err != nil {
-		fmt.Println("Error : %w", err)
-		panic(err)
+
+	flag.Parse()
+
+	if *mode == "enforce" {
+		err := policyenforcer.PolicyEnforcer()
+		if err != nil {
+			fmt.Println("Error : %w", err)
+			panic(err)
+		}
+	} else {
+		err := policyenforcer.PolicyGenerator()
+		if err != nil {
+			fmt.Println("Error : %w", err)
+			panic(err)
+		}
 	}
+
 }

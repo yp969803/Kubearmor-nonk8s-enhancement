@@ -13,7 +13,7 @@ import (
 	pb "github.com/kubearmor/KubeArmor/protobuf"
 
 	"google.golang.org/grpc"
-	
+
 	"sigs.k8s.io/yaml"
 )
 
@@ -45,7 +45,6 @@ func sendPolicyOverGRPC(o PolicyOptions, policyEventData []byte) error {
 		Policy: policyEventData,
 	}
 
-	
 	resp, err := client.ContainerPolicy(context.Background(), &req)
 	if err != nil {
 		return fmt.Errorf("failed to send policy")
@@ -57,17 +56,16 @@ func sendPolicyOverGRPC(o PolicyOptions, policyEventData []byte) error {
 
 func PolicyEnforcer() error {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-	defer cancel() 
+	defer cancel()
 	containers, err := ListDockerContainers(ctx)
 	if err != nil {
 		return err
 	}
 
-
 	startDir, err := os.Getwd()
 	if err != nil {
 		fmt.Println("Error:", err)
-		return err 
+		return err
 	}
 	rootDir, err := FindGoModRoot(startDir)
 	if err != nil {
@@ -78,28 +76,27 @@ func PolicyEnforcer() error {
 
 	path := filepath.Join(rootDir, "example-policy", "kubearmor_containerpolicy.yaml")
 	policy, err := os.ReadFile(filepath.Clean(path))
-	
-    
-    if err != nil {
+
+	if err != nil {
 		return err
 	}
- 
+
 	js, err := yaml.YAMLToJSON([]byte(policy))
 	if err != nil {
 		return err
 	}
 	err = json.Unmarshal(js, &containerPolicy)
-		
+
 	if err != nil {
 		return err
 	}
 
 	for _, container := range containers {
-		
+
 		newContainerPolicy := containerPolicy
-		containerName:= strings.TrimPrefix(container.Names[0], "/")
+		containerName := strings.TrimPrefix(container.Names[0], "/")
 		newContainerPolicy.Spec.Selector.MatchLabels["kubearmor.io/container.name"] = containerName
-		
+
 		policyEvent := tp.K8sKubeArmorPolicyEvent{
 			Type:   "ADDED",
 			Object: containerPolicy,
@@ -109,11 +106,11 @@ func PolicyEnforcer() error {
 			return err
 		}
 		o := PolicyOptions{}
-		
+
 		if err = sendPolicyOverGRPC(o, policyEventData); err != nil {
 			return err
 		}
 	}
 
-    return nil
+	return nil
 }
