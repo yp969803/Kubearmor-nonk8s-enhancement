@@ -55,4 +55,4 @@ make enforcePolicy
 - This will enforce policy on the containers without using karmor CLI
 
 ![Alt text](assets/enforce_policy.png)
-![Alt text](assets/enforce_policy_voilation.png)
+![Alt text](assets/policy_voilations.png)
