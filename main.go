@@ -21,8 +21,14 @@ func main() {
 			fmt.Println("Error : %w", err)
 			panic(err)
 		}
-	} else {
+	} else if *mode == "generate" {
 		err := policyenforcer.PolicyGenerator()
+		if err != nil {
+			fmt.Println("Error : %w", err)
+			panic(err)
+		}
+	} else if *mode == "generateWithoutBlank" {
+		err := policyenforcer.PolicyGeneratorWithoutBlank()
 		if err != nil {
 			fmt.Println("Error : %w", err)
 			panic(err)

@@ -34,7 +34,14 @@ docker run -d --name nginx_container2 -p 8081:80 nginx
 ## Apply these policies using karmor vm policy add and check   violations
 
 ```
+make
 make generatePolicy
+```
+- To generatePolicy without blank spaces
+
+```
+make 
+make generateWithoutBlank
 ```
 - The policy will be generated in outpolicy folder
 
@@ -50,6 +57,7 @@ karmor vm policy add nginx-container1-policy.yaml
 ## Automatically call the function in your script to add all of these policies
 
 ```
+make
 make enforcePolicy
 ```
 - This will enforce policy on the containers without using karmor CLI

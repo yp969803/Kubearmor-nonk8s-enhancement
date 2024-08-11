@@ -5,10 +5,7 @@ metadata:
   name: process-block
 spec:
   action: Block
-  capabilities: {}
-  file: {}
   message: a critical file was accessed
-  network: {}
   process:
     matchPaths:
     - path: /usr/bin/ls
@@ -17,7 +14,5 @@ spec:
     matchLabels:
       kubearmor.io/container.name: nginx_container1
   severity: 5
-  syscalls: {}
   tags:
   - WARNING
-status: {}
